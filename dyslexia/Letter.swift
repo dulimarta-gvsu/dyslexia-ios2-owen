@@ -1,27 +1,32 @@
 //
 //  Letter.swift
 //  dyslexia
+//
 
 import Foundation
 
 struct Letter: Equatable, Hashable {
-    var text: String = ""
-    var point: Int = 0
+    var character: Character = "#"
+    var point: Int = 1
+    
+    var text: String {
+        return String(character)
+    }
 }
 
-extension Array<Letter?> {
+extension Array where Element == Letter? {
     func prettyPrint() -> String {
         return self
-            .filter { $0 != nil }
-            .map { String($0!.text) }
+            .compactMap { $0 }
+            .map { String($0.character) }
             .joined(separator: "")
     }
 }
 
-extension Array<Letter> {
+extension Array where Element == Letter {
     func prettyPrint() -> String {
         return self
-            .map { "\($0.text)" }
+            .map { "\($0.character)" }
             .joined(separator: "")
     }
 }
